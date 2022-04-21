@@ -1,0 +1,25 @@
+body{
+    width: 400px;
+    margin: 0 auto; 
+}
+
+.compound{
+    padding: 0;
+    font-size: 20px;
+}
+
+.item{
+    color: rgb(56, 92, 192);
+    font-size: 16px;
+    margin-left: 18px;
+}
+
+.compound > .item:first-child{
+    margin-top: 20px;
+}
+
+.priceAndColories span{
+    color: red;
+    font-size: 20px;
+    margin-left: 10px;
+}
