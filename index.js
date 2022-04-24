@@ -2,12 +2,11 @@ const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/on
 const GET_BASKET_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
 
 function service(url, callback){
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', url);
-  xhr.send();
-  xhr.onload = () => {
-    callback(JSON.parse(xhr.response));
-  }
+  let promise = fetch(url).then((data) => {
+    return data.json();
+  }).then((data) => {
+    callback(data);
+  })
 }
 
 class GoodsItem {
@@ -28,16 +27,18 @@ class GoodsItem {
 
 class GoodsList {
   list = [];
+  filteredItems = [];
 
   fetchGoods(callback) {
     service(GET_GOODS_ITEMS, (data) => {
       this.list = data;
+      this.filteredItems = data;
       callback();
     });
   }
 
   render(){
-    let goodsList = this.list.map(item => {
+    let goodsList = this.filteredItems.map(item => {
       const goodsItem = new GoodsItem(item);
       return goodsItem.render();
     }).join('');
@@ -48,7 +49,13 @@ class GoodsList {
     let sumItem = this.list.reduce((prev, { price }) => {
       return prev + price;
     }, 0);
-    console.log(sumItem)
+    console.log(sumItem);
+  }
+
+  filterItems(value){
+    this.filteredItems = this.list.filter(({ product_name }) => {
+      return product_name.match( new RegExp(value, 'giu'));
+    });
   }
 }
 
@@ -71,5 +78,11 @@ goodsList.fetchGoods(() => {
 
 const goodsBasket = new GoodBasket(); 
 goodsBasket.fetchGoods(() => {
-  console.log(goodsBasket.list)
+  console.log(goodsBasket.list);
+})
+
+document.querySelector('.search__button').addEventListener('click', () => {
+  const value = document.querySelector('.goods__search').value;
+  goodsList.filterItems(value);
+  goodsList.render();
 })

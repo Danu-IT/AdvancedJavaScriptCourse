@@ -37,6 +37,15 @@ h6 {
     font-size: inherit;
 }
 
+button{
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 /* --------------------------------------- */
 
 .header{
@@ -50,8 +59,6 @@ h6 {
 
 .cart-button{
     padding: 10px;
-    border: none;
-    font: inherit;
     color: white;
     background-color: rgb(51, 51, 225);
     border-radius: 50px;
@@ -97,4 +104,21 @@ h6 {
     color: rgb(26, 26, 230);
     font-weight: 600;
     padding: 20px 0 0 0;
+}
+
+.search{
+    margin-right: 40px;
+}
+
+.goods__search{
+    width: 150px;
+    height: 23px;
+    padding: 10px;
+    outline: none;
+    border-radius: 50px;
+}
+
+.search__button{
+    margin: 0 0 0 20px;
+    color: rgb(22, 7, 7);
 }
