@@ -1,12 +1,10 @@
-const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json';
-const GET_BASKET_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
+const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/'
+const GET_GOODS_ITEMS = `${BASE_URL}catalogData.json`;
+const GET_BASKET_ITEMS = `${BASE_URL}getBasket.json`;
 
-function service(url, callback){
-  let promise = fetch(url).then((data) => {
-    return data.json();
-  }).then((data) => {
-    callback(data);
-  })
+function service(url){
+  return fetch(url)
+  .then((data) => data.json());
 }
 
 class GoodsItem {
@@ -29,12 +27,11 @@ class GoodsList {
   list = [];
   filteredItems = [];
 
-  fetchGoods(callback) {
-    service(GET_GOODS_ITEMS, (data) => {
+  fetchGoods() {
+    return service(GET_GOODS_ITEMS).then((data) => {
       this.list = data;
       this.filteredItems = data;
-      callback();
-    });
+    })
   }
 
   render(){
@@ -62,22 +59,21 @@ class GoodsList {
 class GoodBasket {
   list = [];
 
-  fetchGoods(callback) {
-    service(GET_BASKET_ITEMS, (data) => {
+  fetchGoods() {
+    return service(GET_BASKET_ITEMS).then((data) => {
       this.list = data.contents;
-      callback();
-    });
+    })
   }
 }
 
 const goodsList = new GoodsList();
-goodsList.fetchGoods(() => {
+goodsList.fetchGoods().then(() => {
   goodsList.render();
   goodsList.calculatePrise();
 });
 
 const goodsBasket = new GoodBasket(); 
-goodsBasket.fetchGoods(() => {
+goodsBasket.fetchGoods().then(() => {
   console.log(goodsBasket.list);
 })
 
