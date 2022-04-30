@@ -20,13 +20,14 @@
                     src="img/basket.svg" alt=""></button>
         </header>
         <main>
+            <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
                 <div v-for="item in filteredItems" class="goods-item">
                     <h3 class="goods-title">{{ item.product_name }}</h3>
                     <p class="goods-price">{{ item.price }}</p>
                 </div>
             </div>
-            <div v-if="isVisibleCart" class="basket-list show-basket">
+            <div v-if="isVisibleCart" class="basket-list">
                 <div v-for="item in filteredItems" class="basket-item">
                     <h3 class="goods-title">{{ item.product_name }}</h3>
                     <p class="goods-price">{{ item.price }}</p>

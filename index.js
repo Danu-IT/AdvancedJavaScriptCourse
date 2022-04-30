@@ -14,7 +14,8 @@ function init(){
       list: [],
       filteredItems: [],
       search: '',
-      isVisibleCart: true,
+      isVisibleCart: false,
+      plug: false,
     },
     methods: {
       fetchGoods() {
@@ -25,10 +26,14 @@ function init(){
       },
       filterItems(){
         this.filteredItems = this.list.filter(({ product_name }) => {
+          this.plug = false;
           return product_name.match(new RegExp(this.search, 'giu'));
         });
+        if(this.filteredItems.length == 0){
+          this.plug = true;
+        }
       },
-      basketShow(el){
+      basketShow(){
         this.isVisibleCart == true ? this.isVisibleCart = false : this.isVisibleCart = true;
       }
     },
