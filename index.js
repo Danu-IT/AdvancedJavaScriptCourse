@@ -42,7 +42,7 @@ function init(){
         return this.filteredItems.reduce((prev, { price }) => {
           return prev + price;
         }, 0);
-      }
+      },
     },
     mounted() {
       this.fetchGoods();

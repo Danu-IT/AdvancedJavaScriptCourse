@@ -1,1 +1,5 @@
 .vscode
+.idea/AdvancedJavaScriptCourse.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/.gitignore
