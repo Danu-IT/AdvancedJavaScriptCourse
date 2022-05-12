@@ -14,25 +14,17 @@
         <header class="header">
             <div class="search">
                 <input class="goods__search" type="text" v-model="search">
-                <button class="search__button" type="button" v-on:click="filterItems">Искать</button>
+                <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button>
             </div>
-            <button class="cart-button" v-on:click="basketShow" type="button">Корзина <img class="cart-img"
-                    src="img/basket.svg" alt=""></button>
+            <custom-button class="cart-button" v-on:click="basketShow">Корзина <img class="cart-img"
+                    src="img/basket.svg" alt=""></custom-button>
         </header>
         <main>
             <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
-                <div v-for="item in filteredItems" class="goods-item">
-                    <h3 class="goods-title">{{ item.product_name }}</h3>
-                    <p class="goods-price">{{ item.price }}</p>
-                </div>
+                <goods-item v-for="item in filteredItems" :item="item"></goods-item>
             </div>
-            <div v-if="isVisibleCart" class="basket-list">
-                <div v-for="item in filteredItems" class="basket-item">
-                    <h3 class="goods-title">{{ item.product_name }}</h3>
-                    <p class="goods-price">{{ item.price }}</p>
-                </div>
-            </div>
+            <basket-goods :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow"></basket-goods>
         </main>
         <div class="total-cost">Total cost: {{calculatePrise}}</div>
     </div>

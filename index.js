@@ -8,6 +8,38 @@ function service(url){
 }
 
 function init(){
+
+  const basketGoods = Vue.component('basket-goods', {
+    props:[
+      'isvisiblecart'
+    ],
+    template: 
+    `<div v-if="isvisiblecart" class="basket-list">
+      <img @click="$emit('closeсart')" class="basket-list__close" src="img/Vector.svg" alt="">
+      <div class="basket-item">
+        <h3 class="goods-title">basket cart</h3>
+        <p class="goods-price"></p>
+      </div>
+    </div>`
+  })
+
+  const goodsItem = Vue.component('goods-item', {
+    props:[
+      'item'
+    ],
+    template: `
+    <div class="goods-item">
+      <h3 class="goods-title">{{ item.product_name }}</h3>
+      <p class="goods-price">{{ item.price }}</p>
+    </div>`
+  })
+
+  const customButton = Vue.component('custom-button',{
+    template:`
+      <button type="button" v-on:click="$emit('click')"><slot></slot></button>
+      `
+  })
+
   const app = new Vue({
     el: '#root',
     data: {
@@ -34,7 +66,7 @@ function init(){
         }
       },
       basketShow(){
-        this.isVisibleCart == true ? this.isVisibleCart = false : this.isVisibleCart = true;
+        this.isVisibleCart = !this.isVisibleCart;
       }
     },
     computed: {
