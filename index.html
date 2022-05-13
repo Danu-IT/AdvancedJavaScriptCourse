@@ -12,14 +12,16 @@
 <body>
     <div id="root">
         <header class="header">
-            <div class="search">
-                <input class="goods__search" type="text" v-model="search">
+            <custom-search class="search">
+                <!-- <input class="goods__search" type="text" v-model="search"> -->
+                <custom-input v-model="search"></custom-input>
                 <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button>
-            </div>
+            </custom-search>
             <custom-button class="cart-button" v-on:click="basketShow">Корзина <img class="cart-img"
                     src="img/basket.svg" alt=""></custom-button>
         </header>
         <main>
+            <custom-error class="mainError" :isvisibleerror="isVisibleError"></custom-error>
             <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
                 <goods-item v-for="item in filteredItems" :item="item"></goods-item>
