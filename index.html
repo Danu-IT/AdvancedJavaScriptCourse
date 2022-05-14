@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
@@ -13,7 +15,6 @@
     <div id="root">
         <header class="header">
             <custom-search class="search">
-                <!-- <input class="goods__search" type="text" v-model="search"> -->
                 <custom-input v-model="search"></custom-input>
                 <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button>
             </custom-search>
@@ -32,4 +33,5 @@
     </div>
 </body>
 
-</html>
+
+<div class="basket__cost"></div>

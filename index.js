@@ -1,6 +1,6 @@
-const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/'
-const GET_GOODS_ITEMS = `${BASE_URL}catalogData.json`;
-const GET_BASKET_ITEMS = `${BASE_URL}getBasket.json`;
+const BASE_URL = 'http://localhost:8000'
+const GET_GOODS_ITEMS = `${BASE_URL}/goods`;
+const GET_BASKET_ITEMS = `${BASE_URL}/basket-goods`;
 
 Vue.config.devtools = true
 
@@ -12,17 +12,44 @@ function service(url){
 function init(){
 
   const basketGoods = Vue.component('basket-goods', {
+    data(){
+      return{
+        basketGoods: [],
+      }
+    },
     props:[
       'isvisiblecart'
     ],
     template: 
-    `<div v-if="isvisiblecart" class="basket-list">
-      <img @click="$emit('closeсart')" class="basket-list__close" src="img/Vector.svg" alt="">
-      <div class="basket-item">
-        <h3 class="goods-title">basket cart</h3>
-        <p class="goods-price"></p>
-      </div>
-    </div>`
+    `<div class="basket__container">
+        <div v-if="isvisiblecart" class="basket-list">
+          <img @click="$emit('closeсart')" class="basket-list__close" src="img/Vector.svg" alt="">
+          <div class="basket-title">basket cart</div>
+          <div class="basket-item">
+            <div class="basket__content" v-for="item in basketGoods" :key="item.id">
+              <div class="basket__item">
+                <div>
+                  <div class="basket__name">Name: <span class="basket__color">{{item.data.product_name}}</span></div>
+                  <div class="basket__cost">Cost: <span class="basket__color">{{item.count}}</span></div>
+                </div>
+                <div>Total: <span class="basket__color">{{item.total}}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    `,
+    methods: {
+        fetchBasketGoods() {
+          service(GET_BASKET_ITEMS).then((data) => {
+            this.basketGoods = [...data];
+            console.log(this.basketGoods);
+        })
+      },
+    },
+    mounted(){
+      this.fetchBasketGoods();
+    }
   })
 
   const goodsItem = Vue.component('goods-item', {
