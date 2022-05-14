@@ -2,12 +2,77 @@ const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-st
 const GET_GOODS_ITEMS = `${BASE_URL}catalogData.json`;
 const GET_BASKET_ITEMS = `${BASE_URL}getBasket.json`;
 
+Vue.config.devtools = true
+
 function service(url){
   return fetch(url)
   .then((data) => data.json());
 }
 
 function init(){
+
+  const basketGoods = Vue.component('basket-goods', {
+    props:[
+      'isvisiblecart'
+    ],
+    template: 
+    `<div v-if="isvisiblecart" class="basket-list">
+      <img @click="$emit('closeсart')" class="basket-list__close" src="img/Vector.svg" alt="">
+      <div class="basket-item">
+        <h3 class="goods-title">basket cart</h3>
+        <p class="goods-price"></p>
+      </div>
+    </div>`
+  })
+
+  const goodsItem = Vue.component('goods-item', {
+    props:[
+      'item'
+    ],
+    template: `
+    <div class="goods-item">
+      <h3 class="goods-title">{{ item.product_name }}</h3>
+      <p class="goods-price">{{ item.price }}</p>
+    </div>`
+  })
+
+  const customButton = Vue.component('custom-button',{
+    template:`
+      <button type="button" v-on:click="$emit('click')"><slot></slot></button>
+      `
+  })
+
+  const customInput = Vue.component('custom-input', {
+    props: [
+      'value'
+    ],
+    template: 
+    `
+    <input class="goods__search" type="text" :value="value" @input="$emit('input', $event.target.value)">
+    `
+  })
+
+  const customSearch = Vue.component('custom-search', {
+    template: 
+    `
+    <div>
+      <slot></slot>
+    </div>
+    `
+  })
+
+  const customError = Vue.component('custom-error', {
+    props:[
+        'isvisibleerror'
+    ],
+    template:
+    `
+    <div class="goodsError" v-if="isvisibleerror">
+      <h1>Данные не получены</h1>
+    </div>
+    `
+  })
+
   const app = new Vue({
     el: '#root',
     data: {
@@ -16,12 +81,16 @@ function init(){
       search: '',
       isVisibleCart: false,
       plug: false,
+      isVisibleError: false,
     },
     methods: {
       fetchGoods() {
           service(GET_GOODS_ITEMS).then((data) => {
             this.list = data;
             this.filteredItems = data;
+        }).catch((data) => {
+          console.log(data)
+          this.isVisibleError = true;
         })
       },
       filterItems(){
@@ -34,7 +103,7 @@ function init(){
         }
       },
       basketShow(){
-        this.isVisibleCart == true ? this.isVisibleCart = false : this.isVisibleCart = true;
+        this.isVisibleCart = !this.isVisibleCart;
       }
     },
     computed: {
