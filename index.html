@@ -14,10 +14,9 @@
 <body>
     <div id="root">
         <header class="header">
-            <custom-search class="search">
-                <custom-input v-model="search"></custom-input>
-                <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button>
-            </custom-search>
+            <!-- <custom-input v-model="search"></custom-input>
+            <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button> -->
+            <custom-search @searchclick="filterItems" @input="searchMe" :value="search"></custom-search>
             <custom-button class="cart-button" v-on:click="basketShow">Корзина <img class="cart-img"
                     src="img/basket.svg" alt=""></custom-button>
         </header>
@@ -25,13 +24,9 @@
             <custom-error class="mainError" :isvisibleerror="isVisibleError"></custom-error>
             <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
-                <goods-item v-for="item in filteredItems" :item="item"></goods-item>
+                <goods-item @addgood="addGood" v-for="item in filteredItems" :item="item"></goods-item>
             </div>
             <basket-goods :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow"></basket-goods>
         </main>
-        <div class="total-cost">Total cost: {{calculatePrise}}</div>
     </div>
 </body>
-
-
-<div class="basket__cost"></div>
