@@ -48,9 +48,9 @@ function init(){
         this.search = data;
       },
       addGood(goodId){
-        console.log(servicePost(GET_BASKET_ITEMS,{
+        servicePost(GET_BASKET_ITEMS,{
           id: goodId,
-        }));
+        });
       },
       deleteGood(goodId){
         serviceDelete(GET_BASKET_ITEMS, goodId)

@@ -17,6 +17,11 @@
             <custom-search @searchclick="filterItems" @input="searchMe" :value="search"></custom-search>
             <custom-button class="cart-button" v-on:click="basketShow">Корзина <img class="cart-img"
                     src="img/basket.svg" alt=""></custom-button>
+            <div>
+                <basket-goods v-for="item in filteredItems" @deletegood="deleteGood" @addgood="addGood"
+                    :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow">
+                </basket-goods>
+            </div>
         </header>
         <main>
             <custom-error class="mainError" :isvisibleerror="isVisibleError"></custom-error>
@@ -25,9 +30,6 @@
                 <goods-item v-for="item in filteredItems" :item="item" @addgood="addGood">
                 </goods-item>
             </div>
-            <basket-goods v-for="item in filteredItems" @deletegood="deleteGood" @addgood="addGood"
-                :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow">
-            </basket-goods>
         </main>
     </div>
 </body>

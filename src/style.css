@@ -87,8 +87,7 @@ button{
 }
 
 .goods-price{
-    align-self: flex-end;
-    padding: 30px;
+    padding: 30px 0 30px 15px;
     color: #f91155;
 }
 
@@ -135,12 +134,13 @@ button{
 
 .basket__container{
     position: relative;
+    z-index: 1;
 }
 
 .basket-list{
     position: absolute;
-    top: -210px;
-    right: 0;
+    top: 50px;
+    right: -40px;
     height: auto;
     width: 400px;
     background-color: #242222;
@@ -223,6 +223,19 @@ button{
     background-size: contain;
     width: 20px;
     height: 20px;
-    margin: 5px;
     cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.basket__blank{
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.basket__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 }

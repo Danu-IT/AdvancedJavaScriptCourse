@@ -45,7 +45,6 @@ app.get('/basket-goods', (res, req) => {
 })
 
 app.post('/basket-goods', (res, req) => {
-    console.log(res.body.id)
     getBasketGoods().then((basketGoods) => {
         let hasGod = false;
         const result = basketGoods.map((basketGood) => {
@@ -73,6 +72,7 @@ app.post('/basket-goods', (res, req) => {
 app.delete('/basket-goods/:id', (res, req) => {
     getBasketGoods().then((basketGoods) => {
         const deleteId = res.params.id[1];
+
         let result = basketGoods.map(_basketGood => {
             if(deleteId === _basketGood.id){
                 return {
@@ -82,9 +82,8 @@ app.delete('/basket-goods/:id', (res, req) => {
             }
             return _basketGood
         })
-        result = result.filter(el => el.count >= 1)
-        console.log(result)
 
+        result = result.filter(el => el.count >= 1)
 
         const stringResult = JSON.stringify(result)
         writeFile(BASKET_GOODS_PATH, stringResult).then(() => {

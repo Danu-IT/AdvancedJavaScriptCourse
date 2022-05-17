@@ -12,13 +12,14 @@ export default Vue.component('basket-goods', {
       'isvisiblecart'
     ],
     template: 
-    `<div class="basket__container">
+    `
+    <div class="basket__container">
         <div v-if="isvisiblecart" class="basket-list">
-        <div class="basket-list__close"
-            @click="$emit('closeсart')"
-        ></div>
-          <div class="basket-title">basket cart</div>
-          <div class="basket-item">
+          <div class="basket__header">
+            <div class="basket-title">Корзина</div>
+            <div class="basket-list__close" @click="$emit('closeсart')"></div>
+          </div>
+          <div v-if="basketGoods.length > 0" class="basket-item">
             <div class="basket__content" v-for="item in basketGoods" :key="item.id">
               <div class="basket__item">
                 <div>
@@ -35,6 +36,9 @@ export default Vue.component('basket-goods', {
                 <div>Total: <span class="basket__color">{{item.total}}</span></div>
               </div>
             </div>
+          </div>
+          <div v-else class="basket__blank">
+            Корзина пуста
           </div>
         </div>
     </div>
