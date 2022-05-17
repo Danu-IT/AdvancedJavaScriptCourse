@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
@@ -12,11 +14,9 @@
 <body>
     <div id="root">
         <header class="header">
-            <custom-search class="search">
-                <!-- <input class="goods__search" type="text" v-model="search"> -->
-                <custom-input v-model="search"></custom-input>
-                <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button>
-            </custom-search>
+            <!-- <custom-input v-model="search"></custom-input>
+            <custom-button class="search__button" type="button" v-on:click="filterItems">Искать</custom-button> -->
+            <custom-search @searchclick="filterItems" @input="searchMe" :value="search"></custom-search>
             <custom-button class="cart-button" v-on:click="basketShow">Корзина <img class="cart-img"
                     src="img/basket.svg" alt=""></custom-button>
         </header>
@@ -24,12 +24,9 @@
             <custom-error class="mainError" :isvisibleerror="isVisibleError"></custom-error>
             <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
-                <goods-item v-for="item in filteredItems" :item="item"></goods-item>
+                <goods-item @addgood="addGood" v-for="item in filteredItems" :item="item"></goods-item>
             </div>
             <basket-goods :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow"></basket-goods>
         </main>
-        <div class="total-cost">Total cost: {{calculatePrise}}</div>
     </div>
 </body>
-
-</html>

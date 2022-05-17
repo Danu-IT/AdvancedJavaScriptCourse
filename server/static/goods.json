@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "product_name": "T-shirt",
+        "price": 1500
+    },
+    {
+        "id": "2",
+        "product_name": "dress",
+        "price": 8500
+    },
+    {
+        "id": "3",
+        "product_name": "shirt ",
+        "price": 3500
+    },
+    {
+        "id": "4",
+        "product_name": "suit",
+        "price": 12500
+    }
+]
