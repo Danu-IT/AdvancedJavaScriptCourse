@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <script src="index.js"></script>
 </head>
 
 <body>
@@ -24,9 +22,12 @@
             <custom-error class="mainError" :isvisibleerror="isVisibleError"></custom-error>
             <div v-if="plug" class="plug">Нет данных</div>
             <div class="goods-list">
-                <goods-item @addgood="addGood" v-for="item in filteredItems" :item="item"></goods-item>
+                <goods-item v-for="item in filteredItems" :item="item" @addgood="addGood">
+                </goods-item>
             </div>
-            <basket-goods :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow"></basket-goods>
+            <basket-goods v-for="item in filteredItems" @deletegood="deleteGood" @addgood="addGood"
+                :isVisibleCart="isVisibleCart" v-on:closeсart="basketShow">
+            </basket-goods>
         </main>
     </div>
 </body>

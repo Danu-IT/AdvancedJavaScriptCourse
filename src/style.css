@@ -217,3 +217,12 @@ button{
 .basket-item__count>span{
     margin: 0 10px 0 0;
 }
+
+.basket-list__close{
+    background-image: url("img/Vector.svg");
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    cursor: pointer;
+}
