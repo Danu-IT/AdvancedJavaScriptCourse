@@ -69,6 +69,30 @@ app.post('/basket-goods', (res, req) => {
     })
 })
 
+app.delete('/basket-goods/:id', (res, req) => {
+    getBasketGoods().then((basketGoods) => {
+        const deleteId = res.params.id[1];
+
+        let result = basketGoods.map(_basketGood => {
+            if(deleteId === _basketGood.id){
+                return {
+                    ..._basketGood,
+                    count: _basketGood.count - 1,
+                }
+            }
+            return _basketGood
+        })
+
+        result = result.filter(el => el.count >= 1)
+
+        const stringResult = JSON.stringify(result)
+        writeFile(BASKET_GOODS_PATH, stringResult).then(() => {
+            req.send(stringResult);
+        })
+    })
+
+})
+
 app.listen('8000', () => {
     console.log('Server is starting')
 })
